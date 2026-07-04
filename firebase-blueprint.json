@@ -1,0 +1,128 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "role": { "type": "string", "enum": ["admin", "locataire", "proprietaire"] },
+        "displayName": { "type": "string" },
+        "phone": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "Property": {
+      "title": "Property",
+      "description": "Real estate property details",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "type": { "type": "string", "enum": ["appartement", "villa", "studio", "commercial"] },
+        "price": { "type": "number" },
+        "surface": { "type": "number" },
+        "location": { "type": "string" },
+        "images": { "type": "array", "items": { "type": "string" } },
+        "ownerId": { "type": "string" },
+        "status": { "type": "string", "enum": ["available", "rented", "draft"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "ownerId", "status"]
+    },
+    "Contract": {
+      "title": "Contract",
+      "description": "Rental contract",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "propertyId": { "type": "string" },
+        "tenantId": { "type": "string" },
+        "ownerId": { "type": "string" },
+        "startDate": { "type": "string", "format": "date-time" },
+        "endDate": { "type": "string", "format": "date-time" },
+        "rentAmount": { "type": "number" },
+        "status": { "type": "string", "enum": ["active", "terminated", "expired"] }
+      },
+      "required": ["propertyId", "tenantId", "ownerId"]
+    },
+    "Payment": {
+      "title": "Payment",
+      "description": "Rental payment history",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "contractId": { "type": "string" },
+        "tenantId": { "type": "string" },
+        "amount": { "type": "number" },
+        "date": { "type": "string", "format": "date-time" },
+        "status": { "type": "string", "enum": ["paid", "pending", "failed"] },
+        "method": { "type": "string" }
+      },
+      "required": ["contractId", "tenantId", "amount", "status"]
+    },
+    "Intervention": {
+      "title": "Intervention",
+      "description": "Maintenance request",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "propertyId": { "type": "string" },
+        "requesterId": { "type": "string" },
+        "description": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "in_progress", "completed"] },
+        "type": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["propertyId", "requesterId", "description"]
+    },
+    "QuoteRequest": {
+      "title": "QuoteRequest",
+      "description": "Construction or Architecture quote request",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string", "enum": ["construction", "architecture", "renovation"] },
+        "surface": { "type": "number" },
+        "budget": { "type": "number" },
+        "details": { "type": "string" },
+        "clientName": { "type": "string" },
+        "clientEmail": { "type": "string" },
+        "clientPhone": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "reviewed", "contacted"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["type", "clientName", "clientEmail"]
+    }
+  },
+  "firestore": {
+    "users": {
+      "schema": "User",
+      "description": "Profiles for all users"
+    },
+    "properties": {
+      "schema": "Property",
+      "description": "Listed properties for rent"
+    },
+    "contracts": {
+      "schema": "Contract",
+      "description": "Rental contracts between owners and tenants"
+    },
+    "payments": {
+      "schema": "Payment",
+      "description": "Payment records for rent"
+    },
+    "interventions": {
+      "schema": "Intervention",
+      "description": "Maintenance and repair requests"
+    },
+    "quotes": {
+      "schema": "QuoteRequest",
+      "description": "Customer requests for quotes"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@theme {
+  --color-merveille-dark: #0D2B45;
+  --color-merveille-blue: #1F4E79;
+  --color-merveille-orange: #F57C00;
+  --color-merveille-gray: #E5E5E5;
+  
+  --font-sans: "Inter", ui-sans-serif, system-ui;
+  --font-display: "Montserrat", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-white text-merveille-dark font-sans;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-bold;
+  }
+}
+
+.bg-merveille-gradient {
+  background: linear-gradient(135deg, var(--color-merveille-dark) 0%, var(--color-merveille-blue) 100%);
+}
+
+.text-merveille-orange {
+  color: var(--color-merveille-orange);
+}
+
+.border-merveille-orange {
+  border-color: var(--color-merveille-orange);
+}
+
+.btn-primary {
+  @apply bg-merveille-orange text-white px-6 py-3 rounded-md font-bold transition-all hover:bg-orange-600 active:scale-95;
+}
+
+.btn-secondary {
+  @apply bg-merveille-dark text-white px-6 py-3 rounded-md font-bold transition-all hover:bg-merveille-blue active:scale-95;
+}

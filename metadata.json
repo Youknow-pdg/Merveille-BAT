@@ -1,0 +1,13 @@
+{
+  "name": "MerveilleBAT",
+  "description": "Plateforme immobilière et de construction au Sénégal - Location, Architecture et Construction durable.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "Real Estate Management",
+    "Construction Progress Tracking",
+    "Architecture Portfolio",
+    "Online Payments Simulation"
+  ]
+}
