@@ -49,10 +49,17 @@ const Login = () => {
   const handleGoogleLogin = async () => {
     try {
       setError('');
+      const getRedirectUrl = () => {
+        const origin = window.location.origin;
+        const path = window.location.pathname;
+        const base = path.endsWith('/') ? path : path + '/';
+        return `${origin}${base}auth/callback`.replace(/\/+/g, '/').replace('http:/', 'http://').replace('https:/', 'https://');
+      };
+
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/auth/callback`,
+          redirectTo: getRedirectUrl(),
           skipBrowserRedirect: true
         }
       });

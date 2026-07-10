@@ -41,7 +41,7 @@ function MainLayout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  if (window.location.pathname === '/auth/callback' || window.location.pathname.startsWith('/auth/callback')) {
+  if (window.location.pathname.endsWith('/auth/callback') || window.location.pathname.includes('/auth/callback')) {
     return <AuthCallback />;
   }
 

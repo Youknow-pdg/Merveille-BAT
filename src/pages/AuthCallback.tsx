@@ -29,23 +29,45 @@ export default function AuthCallback() {
         setStatus('Connexion réussie !');
         console.log('AuthCallback: Session récupérée avec succès.');
         
+        const getBaseAppUrl = () => {
+          const origin = window.location.origin;
+          const path = window.location.pathname;
+          const callbackIndex = path.indexOf('/auth/callback');
+          if (callbackIndex !== -1) {
+            const base = path.substring(0, callbackIndex);
+            return `${origin}${base}/`.replace(/\/+/g, '/').replace('http:/', 'http://').replace('https:/', 'https://');
+          }
+          return `${origin}/`;
+        };
+
         if (window.opener) {
           window.opener.postMessage({ type: 'SUPABASE_AUTH_SUCCESS' }, '*');
           setTimeout(() => {
             window.close();
           }, 800);
         } else {
-          window.location.href = '/';
+          window.location.href = getBaseAppUrl();
         }
       } catch (err: any) {
         console.error('AuthCallback Error:', err);
         setError(err.message || 'Erreur lors de la récupération de la session.');
         
+        const getBaseAppUrl = () => {
+          const origin = window.location.origin;
+          const path = window.location.pathname;
+          const callbackIndex = path.indexOf('/auth/callback');
+          if (callbackIndex !== -1) {
+            const base = path.substring(0, callbackIndex);
+            return `${origin}${base}/`.replace(/\/+/g, '/').replace('http:/', 'http://').replace('https:/', 'https://');
+          }
+          return `${origin}/`;
+        };
+
         setTimeout(() => {
           if (window.opener) {
             window.close();
           } else {
-            window.location.href = '/login';
+            window.location.href = getBaseAppUrl() + '#/login';
           }
         }, 3000);
       }
