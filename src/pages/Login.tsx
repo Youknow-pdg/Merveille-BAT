@@ -12,9 +12,15 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const handleMessage = (event: MessageEvent) => {
+    const handleMessage = async (event: MessageEvent) => {
       if (event.data?.type === 'SUPABASE_AUTH_SUCCESS') {
+        try {
+          await supabase.auth.getSession();
+        } catch (e) {
+          console.error("Error refreshing session on success:", e);
+        }
         navigate('/');
+        window.location.reload();
       }
     };
     window.addEventListener('message', handleMessage);

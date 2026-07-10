@@ -11,6 +11,7 @@ import Devis from './pages/Devis';
 import PropertyDetail from './pages/PropertyDetail';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import AuthCallback from './pages/AuthCallback';
 import AdminDashboard, { AdminOverview, AdminProfile, AdminUsersView, AdminPropertiesView, AdminContractsView, AdminFinanceView, AdminSettingsView } from './pages/dashboard/AdminDashboard';
 import TenantDashboard, { TenantOverview, TenantProfile, TenantContractView, TenantPaymentsView, TenantMaintenanceView, TenantSettingsView } from './pages/dashboard/TenantDashboard';
 import OwnerDashboard, { OwnerOverview, OwnerProfile, OwnerPropertiesView, OwnerContractsView, OwnerTenantsView, OwnerFinanceView, OwnerSettingsView } from './pages/dashboard/OwnerDashboard';
@@ -40,6 +41,10 @@ function MainLayout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  if (window.location.pathname === '/auth/callback' || window.location.pathname.startsWith('/auth/callback')) {
+    return <AuthCallback />;
+  }
+
   return (
     <AuthProvider>
       <Router>
